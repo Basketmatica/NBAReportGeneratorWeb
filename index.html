@@ -82,10 +82,14 @@
   </header>
 
   <main>
+    <div class="report-form-container">
+    <h3>Generar informe de jugador</h3>
     <form id="pdf-form">
-      <input type="text" id="playerName" name="playerName" placeholder="Nombre del jugador" required />
-      <button type="submit">Generar Reporte PDF</button>
+      <label for="playerName">Nombre del jugador</label>
+      <input type="text" id="playerName" name="playerName" placeholder="Ej. Stephen Curry" required />
+      <button type="submit">Generar PDF</button>
     </form>
+    </div>
   </main>
 
   <script>
