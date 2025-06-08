@@ -3,16 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Generador de Reportes NBA</title>
+  <title>Generador de Reportes de la NBA</title>
   <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .hero {
+      text-align: center;
+    }
+
+    .hero img {
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .intro {
+      margin-top: 2rem;
+      line-height: 1.6;
+    }
+
+    .intro ul {
+      margin-top: 1rem;
+      padding-left: 1.5rem;
+    }
+
+    .intro ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .highlight {
+      font-weight: bold;
+    }
+
+    .cta {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .cta a {
+      font-weight: bold;
+      color: #d4af37;
+      text-decoration: none;
+    }
+
+    .cta a:hover {
+      text-decoration: underline;
+    }
+
+    .note {
+      font-size: 0.9rem;
+      margin-top: 1.5rem;
+      background: #fff9e6;
+      padding: 1rem;
+      border-left: 4px solid #d4af37;
+      border-radius: 6px;
+    }
+
     .report-form-container {
       max-width: 500px;
-      margin: 2rem auto;
+      margin: 3rem auto;
       padding: 2rem;
       background: #ffffff;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3); /* sombra dorada */
-      font-family: sans-serif;
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
     }
 
     .report-form-container h3 {
@@ -41,7 +105,7 @@
     .report-form-container button {
       width: 100%;
       padding: 0.75rem;
-      background-color: #d4af37; /* dorado */
+      background-color: #d4af37;
       color: #ffffff;
       font-weight: 600;
       border: none;
@@ -51,19 +115,43 @@
     }
 
     .report-form-container button:hover {
-      background-color: #b8932f; /* dorado más oscuro al pasar el cursor */
+      background-color: #b8932f;
       transform: scale(1.02);
     }
   </style>
 </head>
 <body>
-  <div class="report-form-container">
-    <h3>Generar informe de jugador</h3>
-    <form id="pdf-form">
-      <label for="playerName">Nombre del jugador</label>
-      <input type="text" id="playerName" name="playerName" placeholder="Ej. Stephen Curry" required />
-      <button type="submit">Generar PDF</button>
-    </form>
+  <div class="container">
+    <div class="hero">
+      <img src="https://basketmatica.wordpress.com/wp-content/uploads/2025/06/dfb0583a-a603-47b4-b8f9-5f7c319cbdb6.webp" alt="Generador de reportes NBA" />
+    </div>
+
+    <div class="intro">
+      <p>Bienvenido al <strong>Generador de Reportes de la NBA</strong>, una herramienta gratuita diseñada para analistas, entrenadores y fans del baloncesto. Solo necesitas introducir el nombre de cualquier jugador de la NBA (actual o histórico) y en apenas un minuto recibirás un completo informe de scouting en PDF que incluye:</p>
+
+      <ul>
+        <li><span class="highlight">Datos básicos del jugador.</span></li>
+        <li><span class="highlight">Análisis FODA</span> (Fortalezas, Oportunidades, Debilidades y Amenazas) respaldado por métricas avanzadas.</li>
+        <li><span class="highlight">Comparación con jugadores de perfil y trayectorias similares.</span></li>
+      </ul>
+    </div>
+
+    <div class="cta">
+      <h2>GENERA TU REPORTE DE JUGADOR AQUÍ</h2>
+    </div>
+
+    <div class="report-form-container">
+      <h3>Generar informe de jugador</h3>
+      <form id="pdf-form">
+        <label for="playerName">Nombre del jugador</label>
+        <input type="text" id="playerName" name="playerName" placeholder="Ej. Stephen Curry" required />
+        <button type="submit">Generar PDF</button>
+      </form>
+    </div>
+
+    <div class="note">
+      <p><strong>¡Importante!</strong> A causa de que se hace a partir de Inteligencia Artificial, es posible que los informes se generen de manera algo inconsistente entre sí (sin mantener el mismo formato). No obstante, ¡eso no afectará en absoluto a la calidad del contenido de los mismos!</p>
+    </div>
   </div>
 
   <script>
