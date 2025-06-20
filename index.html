@@ -167,10 +167,9 @@
     }
 
     const endpoint = `https://reportgeneratornba.onrender.com/generate-pdf/?player_name=${encodeURIComponent(playerName)}`;
+    window.open(endpoint, "_blank");
 
     try {
-      const button = document.querySelector("button");
-      button.disabled = true;
       status.textContent = "Generando informe...";
       const response = await fetch(endpoint);
       if (!response.ok) throw new Error("Error al generar el PDF.");
@@ -190,7 +189,6 @@
       status.textContent = "❌ Error al generar el informe. Intenta de nuevo más tarde.";
       console.error(error);
     }
-    button.disabled = false;
   });
 </script>
 </body>
