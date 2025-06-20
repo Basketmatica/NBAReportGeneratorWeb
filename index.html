@@ -155,13 +155,33 @@
   </div>
 
   <script>
-    document.getElementById("pdf-form").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const playerName = document.getElementById("playerName").value.trim();
-      if (!playerName) return alert("Por favor, introduce un nombre válido.");
-      const endpoint = `https://reportgeneratornba.onrender.com/generate-pdf/?player_name=${encodeURIComponent(playerName)}`;
-      window.open(endpoint, "_blank");
-    });
-  </script>
+  document.getElementById("pdf-form").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const playerName = document.getElementById("playerName").value.trim();
+    const status = document.getElementById("status");
+    if (!playerName) return alert("Por favor, introduce un nombre válido.");
+
+    const endpoint = `https://reportgeneratornba.onrender.com/generate-pdf/?player_name=${encodeURIComponent(playerName)}`;
+
+    try {
+      status.textContent = "Generando informe...";
+      const response = await fetch(endpoint);
+      if (!response.ok) throw new Error("Error al generar el PDF.");
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${playerName}_Report.pdf`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+      status.textContent = "Informe generado correctamente.";
+    } catch (error) {
+      status.textContent = "Error al generar el informe.";
+      console.error(error);
+    }
+  });
+</script>
 </body>
 </html>
