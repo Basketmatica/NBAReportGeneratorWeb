@@ -169,6 +169,13 @@
     const endpoint = `https://reportgeneratornba.onrender.com/generate-pdf/?player_name=${encodeURIComponent(playerName)}`;
 
     try {
+
+      // Wake up the Render server
+      await fetch("https://reportgeneratornba.onrender.com/");
+      
+      // Espera 2-3 segundos para que Render caliente bien
+      await new Promise(resolve => setTimeout(resolve, 3000));
+
       status.textContent = "Generando informe...";
       const response = await fetch(endpoint);
       if (!response.ok) throw new Error("Error al generar el PDF.");
