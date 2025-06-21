@@ -160,7 +160,7 @@
     e.preventDefault();
     const playerName = document.getElementById("playerName").value.trim();
     const status = document.getElementById("status");
-    
+
     if (!playerName) {
       alert("Por favor, introduce un nombre válido.");
       return;
@@ -169,30 +169,30 @@
     const endpoint = `https://reportgeneratornba.onrender.com/generate-pdf/?player_name=${encodeURIComponent(playerName)}`;
 
     try {
-
       // Wake up the Render server
       await fetch("https://reportgeneratornba.onrender.com/");
-      
-      // Espera 2-3 segundos para que Render caliente bien
       await new Promise(resolve => setTimeout(resolve, 3000));
 
       status.textContent = "Generando informe...";
       const response = await fetch(endpoint);
-      if (!response.ok) throw new Error("Error al generar el PDF.");
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || "Error al generar el PDF.");
+      }
 
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
-
       const a = document.createElement("a");
       a.href = url;
       a.download = `${playerName}_Report.pdf`;
-      document.body.appendChild(a); // Requerido por algunos navegadores
+      document.body.appendChild(a);
       a.click();
       a.remove();
       window.URL.revokeObjectURL(url);
-      status.textContent = "Informe generado correctamente.";
+
+      status.textContent = "✅ Informe generado correctamente.";
     } catch (error) {
-      status.textContent = "❌ Error al generar el informe. Intenta de nuevo más tarde.";
+      status.textContent = `❌ ${error.message}`;
       console.error(error);
     }
   });
