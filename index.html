@@ -171,13 +171,24 @@
     try {
       // Wake up the Render server
       await fetch("https://reportgeneratornba.onrender.com/");
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      await new Promise(resolve => setTimeout(resolve, 5000)); // alarga el calentamiento
 
       status.textContent = "Generando informe...";
       const response = await fetch(endpoint);
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || "Error al generar el PDF.");
+        let message = "Error al generar el PDF.";
+        try {
+          const errorData = await response.json();
+          if (errorData.detail) message = errorData.detail;
+        } catch (_) {
+          if (response.status === 404) {
+            message = "Jugador no encontrado. Verifica el nombre.";
+          } else if (response.status === 500) {
+            message = "Error interno del servidor.";
+          }
+        }
+        throw new Error(message);
       }
 
       const blob = await response.blob();
@@ -192,7 +203,7 @@
 
       status.textContent = "✅ Informe generado correctamente.";
     } catch (error) {
-      status.textContent = `❌ ${error.message}`;
+      status.textContent = `❌ ${error.message || "Error desconocido."}`;
       console.error(error);
     }
   });
