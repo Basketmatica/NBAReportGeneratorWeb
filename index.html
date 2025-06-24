@@ -118,6 +118,23 @@
       background-color: #b8932f;
       transform: scale(1.02);
     }
+
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      vertical-align: middle;
+    }
+    
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
 <body>
@@ -168,14 +185,19 @@
 
     const endpoint = `https://reportgeneratornba.onrender.com/generate-pdf/?player_name=${encodeURIComponent(playerName)}`;
 
+    const button = e.target.querySelector("button");
+    const originalText = button.innerHTML;
+    button.disabled = true;
+    button.innerHTML = '<span class="spinner"></span>';
+    
     try {
       // Wake up the Render server
       await fetch("https://reportgeneratornba.onrender.com/");
       await new Promise(resolve => setTimeout(resolve, 5000)); // alarga el calentamiento
-
+    
       status.textContent = "Generando informe...";
       const response = await fetch(endpoint);
-
+    
       if (!response.ok) {
         let message = "Error al generar el PDF.";
         try {
@@ -190,7 +212,7 @@
         }
         throw new Error(message);
       }
-
+    
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -200,11 +222,14 @@
       a.click();
       a.remove();
       window.URL.revokeObjectURL(url);
-
+    
       status.textContent = "✅ Informe generado correctamente.";
     } catch (error) {
       status.textContent = `❌ ${error.message || "Error desconocido."}`;
       console.error(error);
+    } finally {
+      button.disabled = false;
+      button.innerHTML = originalText;
     }
   });
 </script>
