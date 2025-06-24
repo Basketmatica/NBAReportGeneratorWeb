@@ -18,13 +18,6 @@
       padding: 1rem;
     }
 
-    .report-form-container button:disabled {
-      background-color: #e0e0e0;
-      color: #999999;
-      cursor: not-allowed;
-      transform: none;
-    }
-
     .hero {
       text-align: center;
     }
@@ -126,6 +119,13 @@
       transform: scale(1.02);
     }
 
+    .report-form-container button:disabled {
+      background-color: #e0e0e0;
+      color: #999999;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     .spinner {
       display: inline-block;
       width: 20px;
@@ -199,10 +199,10 @@
     
     try {
       // Wake up the Render server
+      status.textContent = "Generando informe...";
       await fetch("https://reportgeneratornba.onrender.com/");
       await new Promise(resolve => setTimeout(resolve, 5000)); // alarga el calentamiento
     
-      status.textContent = "Generando informe...";
       const response = await fetch(endpoint);
     
       if (!response.ok) {
