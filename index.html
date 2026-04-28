@@ -232,7 +232,7 @@
     
       status.textContent = "✅ Informe generado correctamente.";
     } catch (error) {
-      status.textContent = `❌ ${error.message || "Error desconocido."}`;
+      status.textContent = "❌ Error generando el informe. Revise la ortografía o inténtelo de nuevo más adelante.";
       console.error(error);
     } finally {
       button.disabled = false;
